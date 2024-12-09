@@ -12,6 +12,7 @@ func main() {
 
 	// register "services" and routes
 	container.Provide(services.NewDay1Part1)
+	container.Provide(services.NewDay1Part2)
 	container.Provide(func() *gin.Engine {
 		router := gin.Default()
 		return router

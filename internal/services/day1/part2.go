@@ -7,14 +7,14 @@ import (
 	"strings"
 )
 
-type Day1Part1 struct {
+type Day1Part2 struct {
 }
 
-func NewDay1Part1() *Day1Part1 {
-	return &Day1Part1{}
+func NewDay1Part2() *Day1Part2 {
+	return &Day1Part2{}
 }
 
-func (obj *Day1Part1) Solve() string {
+func (obj *Day1Part2) Solve() string {
 	// parse file into list
 	fileString := file.ReadFileAsString()
 
@@ -40,21 +40,10 @@ func (obj *Day1Part1) Solve() string {
 
 	// solve
 	sum := 0
-	for i := 0; i < len(splitFileString); i++ {
-		leftSideMinIndex, leftSideMinValue := list.GetLowestValue(leftSideValues)
-		rightSideMinIndex, rightSideMinValue := list.GetLowestValue(rightSideValues)
-
-		leftSideValues = list.Pop(leftSideMinIndex, leftSideValues)
-		rightSideValues = list.Pop(rightSideMinIndex, rightSideValues)
-
-		diff := rightSideMinValue - leftSideMinValue
-
-		if diff < 0 {
-			sum -= diff
-		} else {
-			sum += diff
-		}
+	for _, leftSideValue := range leftSideValues {
+		multiplier := list.Count(leftSideValue, rightSideValues)
+		sum += leftSideValue * multiplier
 	}
 
-	return strconv.Itoa(sum) // returns input for now
+	return strconv.Itoa(sum)
 }
