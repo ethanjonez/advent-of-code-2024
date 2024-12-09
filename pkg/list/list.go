@@ -18,14 +18,16 @@ func GetLowestValue(listy []int) (int, int) {
 	return minIndex, minElement
 }
 
-func Pop[V int | string](index int, listy []V) (newListy []V) {
-	if index >= len(listy) || index < 0 {
+func Pop[V int | string](index int, listy []V) []V {
+	copyOfList := append([]V(nil), listy...) // creates new list
+
+	if index >= len(copyOfList) || index < 0 {
 		panic("index out of range for list")
 	}
 
-	newListy = append(listy[:index], listy[index+1:]...)
+	copyOfList = append(copyOfList[:index], copyOfList[index+1:]...)
 
-	return newListy
+	return copyOfList
 }
 
 func Remove[V int | string](element V, listy []V) []V {

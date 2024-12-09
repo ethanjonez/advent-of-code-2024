@@ -11,11 +11,6 @@ type Day1 struct {
 	Day1Part2 services.Day1Part2
 }
 
-type response struct {
-	Answer         string  `json:"answer"`
-	ElapsedSeconds float64 `json:"elapsed"`
-}
-
 func NewDay1(part1 *services.Day1Part1, part2 *services.Day1Part2) *Day1 {
 	day1 := Day1{}
 	day1.Day1Part1 = *part1
