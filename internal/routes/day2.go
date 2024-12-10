@@ -7,14 +7,15 @@ import (
 )
 
 type Day2 struct {
-	Day2Part1 services.Day2Part1
-	Day2Part2 services.Day2Part2
+	Day2Part1 services.IDay2Part1
+	Day2Part2 services.IDay2Part2
 }
 
-func NewDay2(part1 *services.Day2Part1, part2 *services.Day2Part2) *Day2 {
+func NewDay2(part1 services.IDay2Part1, part2 services.IDay2Part2) *Day2 {
 	day2 := Day2{}
-	day2.Day2Part1 = *part1
-	day2.Day2Part2 = *part2
+	day2.Day2Part1 = part1
+	day2.Day2Part2 = part2
+
 	return &day2
 }
 

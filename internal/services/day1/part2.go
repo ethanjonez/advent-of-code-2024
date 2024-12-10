@@ -7,10 +7,14 @@ import (
 	"strings"
 )
 
+type IDay1Part2 interface {
+	Solve() string
+}
+
 type Day1Part2 struct {
 }
 
-func NewDay1Part2() *Day1Part2 {
+func NewDay1Part2() IDay1Part2 {
 	return &Day1Part2{}
 }
 

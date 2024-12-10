@@ -12,23 +12,24 @@ func main() {
 	container := dig.New()
 
 	// register "services" and routes
-	container.Provide(day1.NewDay1Part1)
-	container.Provide(day1.NewDay1Part2)
-	container.Provide(day2.NewDay2Part1)
-	container.Provide(day2.NewDay2Part2)
-	container.Provide(func() *gin.Engine {
-		router := gin.Default()
-		return router
-	})
-	container.Provide(routes.NewDay1)
-	container.Provide(routes.NewDay2)
+	handleErr(container.Provide(day1.NewDay1Part1))
+	handleErr(container.Provide(day1.NewDay1Part2))
+	handleErr(container.Provide(day2.NewDay2Part1))
+	handleErr(container.Provide(day2.NewDay2Part2))
+
+	// add routes
+	handleErr(container.Provide(routes.NewDay1))
+	handleErr(container.Provide(routes.NewDay2))
+	handleErr(container.Provide(routes.NewServer))
 
 	// host router, in future would have a list of background services in here too
-	if err := container.Invoke(func(router *gin.Engine, day1 *routes.Day1, day2 *routes.Day2) {
-		day1.RegisterDay1(router)
-		day2.RegisterDay2(router)
-		router.Run("localhost:8080")
-	}); err != nil {
+	handleErr(container.Invoke(func(router *gin.Engine) {
+		handleErr(router.Run("localhost:8080")) // auto injects routes in constructors
+	}))
+}
+
+func handleErr(err error) {
+	if err != nil {
 		panic(err)
 	}
 }
