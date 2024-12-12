@@ -59,3 +59,13 @@ func Count[V comparable](element V, listy []V) int {
 
 	return count
 }
+
+func FirstIndex[V comparable](listy []V, element V) int {
+	for index, listyElement := range listy {
+		if element == listyElement {
+			return index
+		}
+	}
+
+	return -1
+}
