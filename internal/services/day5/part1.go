@@ -77,15 +77,24 @@ func (obj *Day5Part1) Solve() string {
 	sum := 0
 	for _, update := range updates {
 		isOrdered := true
-		for index, _ := range update {
-			if index == 0 {
-				continue // assuming there isn't any one page updates
+		for index, element := range update {
+			shouldBeAfter := afterMap[element]
+			whatIsBefore := update[:index]
+
+			for _, after := range shouldBeAfter {
+				for _, before := range whatIsBefore {
+					if after == before {
+						isOrdered = false
+						break
+					}
+				}
+
+				if !isOrdered {
+					break
+				}
 			}
 
-			_ = ContainsElement(update[index-1], afterMap, update[index])
-
-			if !ContainsElement(update[index], afterMap, update[index-1]) || ContainsElement(update[index-1], afterMap, update[index]) {
-				isOrdered = false
+			if !isOrdered {
 				break
 			}
 		}
@@ -96,28 +105,4 @@ func (obj *Day5Part1) Solve() string {
 	}
 
 	return strconv.Itoa(sum)
-}
-
-// returns is before
-func ContainsElement(element int, afterMap map[int][]int, beforeElement int) bool {
-	_, beforeElementExists := afterMap[beforeElement]
-	if !beforeElementExists {
-		return false
-	}
-
-	for _, afterElement := range afterMap[beforeElement] {
-		if afterElement == element {
-			return true
-		}
-	}
-
-	anyTrue := false
-	for _, afterElement := range afterMap[beforeElement] {
-		if ContainsElement(element, afterMap, afterElement) {
-			anyTrue = true
-			break
-		}
-	}
-
-	return anyTrue
 }

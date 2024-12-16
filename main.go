@@ -7,6 +7,7 @@ import (
 	day3 "advent-of-code-2024/internal/services/day3"
 	day4 "advent-of-code-2024/internal/services/day4"
 	day5 "advent-of-code-2024/internal/services/day5"
+	day6 "advent-of-code-2024/internal/services/day6"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/dig"
 )
@@ -25,6 +26,8 @@ func main() {
 	handleErr(container.Provide(day4.NewDay4Part2))
 	handleErr(container.Provide(day5.NewDay5Part1))
 	handleErr(container.Provide(day5.NewDay5Part2))
+	handleErr(container.Provide(day6.NewDay6Part1))
+	handleErr(container.Provide(day6.NewDay6Part2))
 
 	// add routes
 	handleErr(container.Provide(routes.NewDay1))
@@ -32,6 +35,7 @@ func main() {
 	handleErr(container.Provide(routes.NewDay3))
 	handleErr(container.Provide(routes.NewDay4))
 	handleErr(container.Provide(routes.NewDay5))
+	handleErr(container.Provide(routes.NewDay6))
 	handleErr(container.Provide(routes.NewServer))
 
 	// host router, in future would have a list of background services in here too
